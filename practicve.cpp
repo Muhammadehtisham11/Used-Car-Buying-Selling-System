@@ -48,7 +48,7 @@ char username[30], password[30];
 printf("Login:\n");
 printf("Username: ");
 scanf("%s", username);
-printf("Password: ");
+printf("Password  : ");
 scanf("%s", password);
 
 if (strcmp(username, "admin") == 0 && strcmp(password, "admin123") == 0) {
@@ -109,7 +109,7 @@ carCount++;
 
 void viewCars() {
 if (carCount == 0) {
-printf("No cars added yet.\n");
+printf("No cars added yet. \n");
 return;
 }
 
