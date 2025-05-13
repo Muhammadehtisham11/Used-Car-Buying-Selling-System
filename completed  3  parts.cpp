@@ -171,7 +171,7 @@ found = 1;
 }
 }
 if (!found) {
-printf("No available cars at the moment.\n");
+printf("Unfortunatelly No available cars at the moment. \n");
 }
 }
 
