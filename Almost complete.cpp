@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h> // For isdigit()
+#include <ctype.h> // This library For isdigit 
 
 #define MAX 100
 #define DATA_FILE "car_data.txt"
 #define BUYER_FILE "buyers.txt"
 
-// Car structure (better than parallel arrays)
+// Car structure 
 typedef struct {
     char brand[50];
     char model[50];
@@ -27,8 +27,11 @@ Buyer buyers[MAX];
 int carCount = 0;
 int buyerCount = 0;
 
-// Function prototypes
+// Function declaration
+
+void stylePattern1();
 void showWelcome();
+void stylePattern2();
 int login();
 void adminMenu();
 void buyerMenu();
@@ -49,8 +52,12 @@ void clearInputBuffer();
 int getIntInput(const char *prompt, int min, int max);
 float getFloatInput(const char *prompt, float min);
 
-int main() {
-    showWelcome();
+int main() 
+{
+	
+    stylePattern1();
+	showWelcome();
+	stylePattern2();
     loadCarsFromFile();
     loadBuyersFromFile();
 
@@ -58,43 +65,72 @@ int main() {
 
     if (userType == 1) {
         adminMenu();
-    } else if (userType == 2) {
+    } 
+	else if (userType == 2) {
         buyerMenu();
-    } else {
-        printf("\nLogin failed.\033[0m\n");
+    } 
+	else {
+        printf("\nLogin failed.\n");
     }
 
     saveCarsToFile();
     saveBuyersToFile();
     return 0;
 }
+void stylePattern1(){
+	for (int i=15;i>=1;i--){
+		for(int space=1;space<=15-i;space++){
+			printf(" ");
+	} 
+	for (int j=1;j<=i;j++){
+		printf("*  ");
+	}
+	printf("\n");
+}
+}
 
-void showWelcome() {
+void showWelcome() 
+{
     printf("\n====================================\n");
     printf("   USED CAR BUYING & SELLING SYSTEM\n");
     printf("====================================\n");
 }
+void stylePattern2(){
+	for (int i=1;i<=15;i++){
+		for(int space=1;space<=15-i;space++){
+		 printf(" ");
+	}
+	for (int j=1;j<=i;j++){
+		printf("*  ");
+	}
+
+		printf("\n");
+	}
+}
+
 
 int login() {
     char username[30], password[30];
 
     printf("\nLogin\n------\n");
     printf("Username: ");
-    scanf("%29s", username);
+    scanf("%s",& username);
     printf("Password: ");
-    scanf("%29s", password);
+    scanf("%s", &password);
 
     if (strcmp(username, "admin") == 0 && strcmp(password, "admin123") == 0) {
-        return 1; // Admin
-    } else if (buyerLogin(username, password)) {
-        return 2; // Buyer
+        return 1; // It will return admin menu
+    } 
+	else if (buyerLogin(username, password)) {
+        return 2; // It will return Buyer menu
     }
-    return 0; // Invalid
+    return 0; // if the above conditions false
 }
 
 void adminMenu() {
     int choice;
     do {
+    	printf("\n====Wellcome to Admin Menu====\n");
         printf("\n===== Admin Menu =====\n");
         printf("1. Add Car\n");
         printf("2. View All Cars\n");
@@ -105,12 +141,18 @@ void adminMenu() {
         choice = getIntInput("Enter choice: ", 1, 6);
 
         switch (choice) {
-            case 1: addCar(); break;
-            case 2: viewCarsAdmin(); break;
-            case 3: showSoldCars(); break;
-            case 4: searchCar(); break;
-            case 5: sortCarsByPrice(); break;
-            case 6: printf("Exiting...\n"); break;
+            case 1: addCar(); 
+			break;
+            case 2: viewCarsAdmin(); 
+			break;
+            case 3: showSoldCars(); 
+			break;
+            case 4: searchCar(); 
+			break;
+            case 5: sortCarsByPrice(); 
+			break;
+            case 6: printf("Exiting...\n"); 
+			break;
         }
     } while (choice != 6);
 }
@@ -118,6 +160,7 @@ void adminMenu() {
 void buyerMenu() {
     int choice;
     do {
+    	printf("\n====Wellcome to Buyer Menu====\n");
         printf("\n===== Buyer Menu =====\n");
         printf("1. View Available Cars\n");
         printf("2. Buy a Car\n");
@@ -127,18 +170,23 @@ void buyerMenu() {
         choice = getIntInput("Enter choice: ", 1, 5);
 
         switch (choice) {
-            case 1: viewAvailableCars(); break;
-            case 2: buyCar(); break;
-            case 3: searchCar(); break;
-            case 4: registerBuyer(); break;
-            case 5: printf("Exiting...\n"); break;
+            case 1: viewAvailableCars(); 
+			break;
+            case 2: buyCar(); 
+			break;
+            case 3: searchCar(); 
+			break;
+            case 4: registerBuyer();
+			 break;
+            case 5: printf("Exiting...\n");
+			 break;
         }
     } while (choice != 5);
 }
 
 void addCar() {
     if (carCount >= MAX) {
-        printf("\nError: Maximum cars reached!\n");
+        printf("\nError: You Have reached limit ofMaximum cars!\n");
         return;
     }
 
@@ -152,7 +200,7 @@ void addCar() {
     cars[carCount].isSold = 0;
 
     carCount++;
-    printf("\n\033[1;32mCar added successfully!\033[0m\n");
+    printf("\nAdded successfully! Good Luck\n");
 }
 
 void viewCarsAdmin() {
@@ -204,7 +252,7 @@ void buyCar() {
 
     if (toupper(confirm) == 'Y') {
         cars[id - 1].isSold = 1;
-        printf("\n\033[1;32mPurchase successful! Thank you.\033[0m\n");
+        printf("\nPurchase successful! Thank you.\n");
     } else {
         printf("\nPurchase cancelled.\n");
     }
@@ -314,7 +362,7 @@ void registerBuyer() {
     scanf("%29s", buyers[buyerCount].password);
     strcpy(buyers[buyerCount].username, username);
     buyerCount++;
-    printf("\n\033[1;32mRegistration successful!\033[0m\n");
+    printf("\nRegistration successful!\n");
 }
 
 int buyerLogin(char *username, char *password) {
@@ -352,7 +400,7 @@ void saveBuyersToFile() {
     fclose(fp);
 }
 
-// Utility functions
+       // Utility functions
 void clearInputBuffer() {
     while (getchar() != '\n');
 }
