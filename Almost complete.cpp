@@ -38,7 +38,7 @@ void buyerMenu();
 void addCar();
 void viewCarsAdmin();
 void viewAvailableCars();
-void buyCar();
+void purchaseCar();
 void saveCarsToFile();
 void loadCarsFromFile();
 void searchCar();
@@ -234,7 +234,7 @@ void viewAvailableCars() {
     if (!found) printf("No cars available.\n");
 }
 
-void buyCar() {
+void purchaseCar() {
     viewAvailableCars();
     if (carCount == 0) return;
 
