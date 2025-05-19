@@ -189,7 +189,7 @@ if (id < 1 || id > carCount) {
 }
 
 if (isSold[id - 1]) {
-    printf("This car is already sold.\n");
+    printf("Sorry This car is already sold.\n");
     return;
 }
 
